@@ -31,7 +31,7 @@ contract FundMe {
         addressToAmountFunded[msg.sender] += msg.value;
     }
 
-    function withdraw() public payable onlyOwner {
+    function withdraw() public onlyOwner {
         (bool success, ) = owner.call{value: address(this).balance}("");
         require(success, "Transfer failed.");
         for (uint256 i = 0; i < funders.length; i++) {
