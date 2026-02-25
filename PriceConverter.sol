@@ -34,17 +34,18 @@ interface AggregatorV3Interface {
 }
 
 library PriceConverter {
-
     function getLatestPrice(address _address) internal view returns (uint256) {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(_address);
         (, int256 price, , , ) = priceFeed.latestRoundData();
-        return uint256(price*1e10);
+        return uint256(price * 1e10);
     }
 
-    function getConversionRate(uint256 _amount, address _address) internal view returns (uint256) {
+    function getConversionRate(
+        uint256 _amount,
+        address _address
+    ) internal view returns (uint256) {
         uint256 priceOfEther = getLatestPrice(_address);
         uint256 ethAmountInUsd = (priceOfEther * _amount) / 1e18;
         return ethAmountInUsd;
     }
-
 }

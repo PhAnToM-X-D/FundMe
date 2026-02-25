@@ -10,7 +10,7 @@ contract FundMe {
     uint256 public amount;
 
     address[] public funders;
-    mapping (address => uint) public addressToAmountFunded;
+    mapping(address => uint) public addressToAmountFunded;
 
     constructor(address _priceFeed, uint256 _amount) {
         owner = payable(msg.sender);
@@ -18,15 +18,12 @@ contract FundMe {
         amount = _amount;
     }
 
-    modifier onlyOwner {
-        require(
-            msg.sender == owner,
-            "Only the owner can call this function."
-        );
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only the owner can call this function.");
         _;
     }
 
-    function fund () public payable {
+    function fund() public payable {
         require(
             msg.value.getConversionRate(priceFeed) >= amount,
             "You need to spend more ETH!"
@@ -42,5 +39,4 @@ contract FundMe {
         }
         funders = new address[](0);
     }
-
 }
