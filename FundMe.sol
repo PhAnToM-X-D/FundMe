@@ -20,8 +20,8 @@ contract FundMe {
 
     modifier onlyOwner {
         require(
-            msg.value.getConversionRate(priceFeed) >= amount,
-            "You need to spend more ETH!"
+            msg.sender == owner,
+            "Only the owner can call this function."
         );
         _;
     }
