@@ -15,7 +15,7 @@ contract FundMe {
     constructor(address _priceFeed, uint256 _amount) {
         owner = payable(msg.sender);
         priceFeed = _priceFeed;
-        amount = _amount;
+        amount = _amount * 1e18;
     }
 
     modifier onlyOwner() {
